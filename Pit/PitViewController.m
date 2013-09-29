@@ -9,15 +9,30 @@
 #import "PitViewController.h"
 
 @interface PitViewController ()
-
+@property (weak, nonatomic) IBOutlet UILabel *totalLabel;
+@property (weak, nonatomic) IBOutlet UITextField *tipText;
+@property (weak, nonatomic) IBOutlet UITextField *mealText;
 @end
 
 @implementation PitViewController
 
+- (UILabel *)totalLabel
+{
+    return _totalLabel;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    [self updatePrice];
+}
+- (IBAction)updatePrice {
+    float mealPrice = [self.mealText.text floatValue];
+    float tipAmount = [self.tipText.text floatValue];
+    
+    float total = mealPrice * ((tipAmount / 100.0) + 1);
+    
+    self.totalLabel.text = [NSString stringWithFormat:@"%.2f", total];
 }
 
 - (void)didReceiveMemoryWarning
